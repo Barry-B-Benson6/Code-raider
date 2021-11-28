@@ -1,11 +1,13 @@
 const { MessageActionRow, MessageButton } = require('discord.js');
 
-const end = new MessageActionRow()
-.addComponents(
-    new MessageButton()
-        .setCustomId('end')
-        .setLabel('End Raid')
-        .setStyle('DANGER'),
-);
+function createEndButton(guildId) {
+    return new MessageActionRow()
+    .addComponents(
+        new MessageButton()
+            .setCustomId('end_' + guildId)
+            .setLabel('End Raid')
+            .setStyle('DANGER'),
+    );
+}
 
-module.exports = { varToExport: end};
+module.exports = { varToExport: createEndButton };

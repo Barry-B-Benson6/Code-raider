@@ -1,6 +1,6 @@
 const { MessageAttachment, MessageEmbed } = require('discord.js');
 
-const playermsgbuttons = require('./buttons/playermsgbuttons.js').varToExport;
+createPlayerMsgButtons = require('./buttons/playermsgbuttons.js').varToExport;
 
 module.exports = {
     name: 'next',
@@ -10,13 +10,11 @@ module.exports = {
             .setTitle('Code')
             .addField('\u200B', `${session.allCodes[session.currentcode]}`);
 
-
-        interaction.update({ embeds: [codeMessage], components: [playermsgbuttons] });
+        interaction.update({ embeds: [codeMessage], components: [createPlayerMsgButtons(session.guildId)] });
 
         for (player in session.Currentplayerids){
             if (session.Currentplayerids[player] === interaction.user.id){
-                session.Playercodes[player] = session.allCodes[currentcode];
-                console.log(Playercodes[player]);
+                session.Playercodes[player] = session.allCodes[session.currentcode];
             }
         }
 

@@ -1,11 +1,11 @@
 const { MessageAttachment, MessageEmbed } = require('discord.js');
 
-const playermsgbuttons = require('./buttons/playermsgbuttons.js').varToExport;
+createPlayerMsgButtons = require('./buttons/playermsgbuttons.js').varToExport;
 
 module.exports = {
     name: 'join',
     description: "used to join a raid",
-    execute(interaction, session,guildId) {
+    execute(interaction, session) {
         for (player in session.Currentplayers) {
             if (session.Currentplayers[player] === interaction.user.username) {
                 interaction.user.send("you have already joined wait for the creator to start the raid").then(newmsg => {
@@ -37,7 +37,7 @@ module.exports = {
                 .setTitle('Code')
                 .addField('\u200B', `${session.allCodes[session.currentcode]}`);
 
-            interaction.user.send({ embeds: [codeMessage], components: [playermsgbuttons] })
+            interaction.user.send({ embeds: [codeMessage], components: [createPlayerMsgButtons(interaction.guildId)] })
 
 
             for (player in session.Currentplayerids){

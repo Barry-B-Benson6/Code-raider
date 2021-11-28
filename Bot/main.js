@@ -31,6 +31,7 @@ class SessionState {
         this.Currentplayers = [];
         this.Currentplayerids = [];
         this.Playercodes = [];
+        this.deleted = false;
     }
 }
 
@@ -41,7 +42,7 @@ function getOrCreateSession(guildId) {
         sessions.set(guildId, new SessionState(guildId));
         console.log('session created');
     }
-    
+
 
     sessions.get(guildId).users = client.users;
 
@@ -49,9 +50,9 @@ function getOrCreateSession(guildId) {
 }
 
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-for(const file of commandFiles){
+for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
- 
+
     client.commands.set(command.name, command);
 
 }
@@ -72,7 +73,7 @@ client.on('messageCreate', message => {
 
     if (command === 'setup') {
         let session = getOrCreateSession(message.guildId);
-        client.commands.get('setup').execute(message, args, command,session);
+        client.commands.get('setup').execute(message, args, command, session);
     }
 });
 
@@ -81,17 +82,32 @@ client.on("interactionCreate", (interaction) => {
     if (!interaction.isButton()) return;
     if (interaction.user.bot) return;
 
-    if (client.commands.has(interaction.customId)){
-        let session = getOrCreateSession(interaction.guildId);
-        console.log("ids" + session.Currentplayerids);
-        client.commands.get(interaction.customId).execute(interaction, session)
-    }
-    else{
-        console.log('unknown customid: ' + interaction.customId);
-        
+    parts = interaction.customId.split('_');
+    let customId = parts[0];
+    if (parts.length > 1) {
+        let guildId = parts[1];
+
+        if (client.commands.has(customId)) {
+            let session = getOrCreateSession(guildId);
+            console.log("ids" + session.Currentplayerids);
+            client.commands.get(customId).execute(interaction, session);
+
+            if (session.deleted) {
+                sessions.delete(guildId);
+            }
+        }
+        else {
+            console.log('unknown customid: ' + customId);
+
+            interaction.deferUpdate();
+        }
+    } else {
+        console.log('No found guildId in customId: ' + interaction.customId);
+
         interaction.deferUpdate();
     }
 
+
 });
 
-client.login('OTEzNzEzMjYwNDc2MzcwOTkz.YaCfyQ.1-kJgyYpf0ec7ew6PhDS7QEYBAA');
+client.login('OTEyNTI3NDA3NjM2OTcxNTIx.YZxPXw.y20t1RKww02K7MHAZl-4fKiyJAk');

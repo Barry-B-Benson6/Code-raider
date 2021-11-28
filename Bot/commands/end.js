@@ -3,22 +3,17 @@ const Discord = require('discord.js');
 module.exports = {
     name: 'end',
     description: "used to end raid",
-    execute(interaction, session,guildId) {
+    execute(interaction, session) {
 
-        if (interaction.user.id === session.creator){
+        if (interaction.user.id === session.creator) {
+            // Set flag. This will be actioned elsewhere to remove the session...
+            session.deleted = true;
+
             session.setupmsg.delete(1000);
             session.setupmsg.channel.send('the raid has ended');
             for (message in session.playermsgs){
                 session.playermsgs[message].delete(1000);
             }
-            session.inraid = false;
-            session.insetup = false;
-            session.creator = Discord.user;
-            session.currentcode = 0;
-            session.playermsgs = [];
-            session.Currentplayers = [];
-            session.Currentplayerids = [];
-            session.Playercodes = [];
             for (msg in session.WarningMessages){
                 session.WarningMessages[msg].delete(1000);
             }

@@ -1,17 +1,19 @@
 const { MessageActionRow, MessageButton } = require('discord.js');
 
-const confirm = new MessageActionRow()
-.addComponents(
-    new MessageButton()
-    .setCustomId('confirm')
-    .setLabel('yes')
-    .setStyle("SUCCESS")
-)
-.addComponents(
-    new MessageButton()
-    .setCustomId('no')
-    .setLabel('no')
-    .setStyle("DANGER")
-);
+function createConfirmButtons(guildId) {
+    return new MessageActionRow()
+    .addComponents(
+        new MessageButton()
+        .setCustomId('confirm_' + guildId)
+        .setLabel('yes')
+        .setStyle("SUCCESS")
+    )
+    .addComponents(
+        new MessageButton()
+        .setCustomId('no_' + guildId)
+        .setLabel('no')
+        .setStyle("DANGER")
+    );
+}
 
-module.exports = { varToExport: confirm};
+module.exports = { varToExport: createConfirmButtons };
