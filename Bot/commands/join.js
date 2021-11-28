@@ -5,7 +5,7 @@ const playermsgbuttons = require('./buttons/playermsgbuttons.js').varToExport;
 module.exports = {
     name: 'join',
     description: "used to join a raid",
-    execute(interaction, session) {
+    execute(interaction, session,guildId) {
         for (player in session.Currentplayers) {
             if (session.Currentplayers[player] === interaction.user.username) {
                 interaction.user.send("you have already joined wait for the creator to start the raid").then(newmsg => {

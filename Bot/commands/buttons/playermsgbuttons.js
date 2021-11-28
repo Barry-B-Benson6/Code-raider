@@ -3,7 +3,7 @@ const { MessageActionRow, MessageButton } = require('discord.js');
 const playermsgbuttons = new MessageActionRow()
 .addComponents(
     new MessageButton()
-        .setCustomId('playermsgbuttons')
+        .setCustomId('next')
         .setLabel('Next')
         .setStyle('PRIMARY'),
 )

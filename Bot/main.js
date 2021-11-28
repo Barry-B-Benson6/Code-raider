@@ -19,11 +19,13 @@ let GUILDS = []
  */
 class SessionState {
     constructor(guildId) {
+        this.users = Discord.UserManager;
         this.allCodes = allCode;
         this.guildId = guildId;
+        this.WarningMessages = [];
         this.inraid = false;
         this.insetup = false;
-        this.creator = Discord.user;
+        this.creator = Discord.User;
         this.currentcode = 0;
         this.playermsgs = [];
         this.Currentplayers = [];
@@ -37,7 +39,11 @@ const sessions = new Map();
 function getOrCreateSession(guildId) {
     if (!sessions.has(guildId)) {
         sessions.set(guildId, new SessionState(guildId));
+        console.log('session created');
     }
+    
+
+    sessions.get(guildId).users = client.users;
 
     return sessions.get(guildId);
 }
@@ -66,14 +72,18 @@ client.on('messageCreate', message => {
 
     if (command === 'setup') {
         let session = getOrCreateSession(message.guildId);
-        client.commands.get('setup').execute(message, args, session);
+        client.commands.get('setup').execute(message, args, command,session);
     }
 });
 
 client.on("interactionCreate", (interaction) => {
 
+    if (!interaction.isButton()) return;
+    if (interaction.user.bot) return;
+
     if (client.commands.has(interaction.customId)){
         let session = getOrCreateSession(interaction.guildId);
+        console.log("ids" + session.Currentplayerids);
         client.commands.get(interaction.customId).execute(interaction, session)
     }
     else{
