@@ -61,12 +61,31 @@ const allCodes = require('./codes.js').varToExport;
 
 
 client.once('ready', () => {
+    // let guilds = client.guilds.cache
+    // guilds.forEach(g => {
+    //     console.log(g.name)
+    // });
     console.log('Refactor');
 });
 
+const ServersFolders = fs.readdirSync('./Servers/').filter(file => file.endsWith('.js'));
+
 client.on('messageCreate', message => {
 
-    if (!message.content.startsWith(prefix) || message.author.bot) return;
+    if (message.author.bot) return;
+
+    console.log(message)
+
+    var channelFile = fs.mkdirSync(`./Servers/${message.guild.name}`, { recursive: true })
+    console.log(message.guild.name)
+    fs.appendFile(`Servers/${message.guild.name}/${message.channel.name}.txt`, `${message.author.username}: ${message.content} \n\r`, err => {
+        if (err) {
+            console.error(err)
+        }
+        //file written successfully
+    })
+
+    if (!message.content.startsWith(prefix)) return;
 
     const args = message.content.slice(prefix.length).split(/ +/);
     const command = args.shift().toLowerCase();
@@ -110,4 +129,4 @@ client.on("interactionCreate", (interaction) => {
 
 });
 
-client.login('OTEyNTI3NDA3NjM2OTcxNTIx.YZxPXw.y20t1RKww02K7MHAZl-4fKiyJAk');
+client.login('OTEyNTI3NDA3NjM2OTcxNTIx.GKoJDf.uUKAfYH1ytlBFWMzN0mfS4r7b-zjo2fRYAXyy0');
