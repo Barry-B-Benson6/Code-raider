@@ -85,4 +85,6 @@ g
 Cinnamon Roll:  
     https://cdn.discordapp.com/attachments/913534712016941057/986217032410345512/1200px-Cinnamon-Roll-US-Bakery.jpg 
 Cinnamon Roll: -setup 
+Cinnamon Roll: -start 
+Cinnamon Roll: -setup 
 

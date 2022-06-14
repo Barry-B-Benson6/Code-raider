@@ -9,7 +9,7 @@ module.exports = {
         for (player in session.Currentplayers) {
             if (session.Currentplayers[player] === interaction.user.username) {
                 interaction.user.send("you have already joined wait for the creator to start the raid").then(newmsg => {
-                    WarningMessages[WarningMessages.length] = newmsg;
+                    session.WarningMessages[session.WarningMessages.length] = newmsg;
                 });
                 return interaction.deferUpdate()
             }

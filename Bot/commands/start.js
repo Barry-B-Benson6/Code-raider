@@ -12,7 +12,7 @@ module.exports = {
         if (interaction.user.id === session.creator) {
             if (session.Currentplayers[0] === null) {
                 interaction.user.send('Cannot start raid until at least 1 person is in the raid').then(newmsg => {
-                    session.WarningMessages[WarningMessages.length] = newmsg;
+                    session.WarningMessages[session.WarningMessages.length] = newmsg;
                 });
                 return interaction.deferUpdate()
             }
@@ -43,7 +43,7 @@ module.exports = {
         }
         else {
             interaction.user.send("Only the owner of the raid can start it").then(newmsg => {
-                session.WarningMessages[WarningMessages.length] = newmsg;
+                session.WarningMessages[session.WarningMessages.length] = newmsg;
             });
             return interaction.deferUpdate()
         }

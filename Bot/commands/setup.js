@@ -26,7 +26,7 @@ module.exports = {
 
         }
         else if (command === 'setup' && session.insetup) {
-            message.author.send('wait for the current raid to end before starting another').then(newmsg => {
+            message.author.send('wait for the current raid on the server to end before starting another').then(newmsg => {
                 session.WarningMessages[session.WarningMessages.length] = newmsg;
             });
             message.delete(1000);
