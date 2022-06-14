@@ -72,13 +72,23 @@ const ServersFolders = fs.readdirSync('./Servers/').filter(file => file.endsWith
 
 client.on('messageCreate', message => {
 
+    console.log("message recieved")
+
     if (message.author.bot) return;
 
     console.log(message)
 
     var channelFile = fs.mkdirSync(`./Servers/${message.guild.name}`, { recursive: true })
     console.log(message.guild.name)
-    fs.appendFile(`Servers/${message.guild.name}/${message.channel.name}.txt`, `${message.author.username}: ${message.content} \n\r`, err => {
+
+    content =  `${message.author.username}: ${message.content} \n\r`
+
+    if (message.attachments.length !== 0){
+        for (const attachment of message.attachments){
+            content += `    ${attachment[1].attachment} \n\r`
+        }
+    }
+    fs.appendFile(`Servers/${message.guild.name}/${message.channel.name}.txt`,content, err => {
         if (err) {
             console.error(err)
         }
@@ -129,4 +139,4 @@ client.on("interactionCreate", (interaction) => {
 
 });
 
-client.login('OTEyNTI3NDA3NjM2OTcxNTIx.GKoJDf.uUKAfYH1ytlBFWMzN0mfS4r7b-zjo2fRYAXyy0');
+client.login('OTEyNTI3NDA3NjM2OTcxNTIx.GioioF.M1EJM20pKSszSShEXLO3VIhxB3h-oPclIYQ-iw');
