@@ -1,10 +1,0 @@
-Slade_: -help 
-Slade_: .help 
-Slade_: !help 
-Slade_: -prefix 
-Slade_: -setup 
-Slade_: -prefix 
-Slade_: -prefix 
-Slade_: -setup 
-Slade_: -setup 
-
