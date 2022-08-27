@@ -3,7 +3,9 @@
     This is a discord bot that can be used for brute forcing door codes in the game <a href="https://store.steampowered.com/app/252490/Rust/" target="_blank">Rust</a>
 </p1>
 
-<h1>How to set up Bot</h1>
+<h1><a href="https://discord.com/api/oauth2/authorize?client_id=912527407636971521&permissions=274878049344&scope=bot" target="_blank">Invite the bot now!</a></h1>
+
+<h1>Alternativly Host the bot yourself, Heres how</h1>
 
 <h2><a href="https://discordpy.readthedocs.io/en/stable/discord.html" target="_blank">How to make a discord bot</a></h2>
 
