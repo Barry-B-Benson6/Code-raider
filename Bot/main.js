@@ -1,5 +1,7 @@
 const { REST } = require('@discordjs/rest');
 const { channel } = require('diagnostics_channel');
+const SlashCommandBuilder = require('discord.js');
+const Routes = require('discord.js');
 const Discord = require('discord.js');
 require('dotenv').config()
 const client = new Discord.Client({ intents: ["GUILDS", "GUILD_MESSAGES", "DIRECT_MESSAGE_REACTIONS"] });
@@ -9,12 +11,16 @@ const allCode = require('./codes.js').varToExport;
 const { MessageActionRow, MessageButton } = require('discord.js');
 
 const fs = require('fs');
+const { setgroups } = require('process');
 client.commands = new Discord.Collection();
 
 const prefix = '-';
 let i = 1;
 
 let GUILDS = []
+
+const rest = new REST({ version: '10' }).setToken(process.env.TOKEN);
+
 
 /**
  * Contains information about the current state of a session a particular Guild.
@@ -63,8 +69,14 @@ for (const file of commandFiles) {
 client.once('ready', () => {
     console.log('Refactor');
     setInterval(() => {
-            client.user.setActivity(`-setup to create a raid`);
+            client.user.setActivity(`/setup to create a raid`);
     }, 2000);
+
+    let commands = client.application?.commands;
+    commands?.create({
+        name: "setup",
+        description: "Starts raid setup",
+    })
 });
 
 client.on('messageCreate', message => {
@@ -75,13 +87,23 @@ client.on('messageCreate', message => {
     const command = args.shift().toLowerCase();
 
     if (command === 'setup') {
-        let session = getOrCreateSession(message.guildId);
-        client.commands.get('setup').execute(message, args, command, session);
+        console.log(message)
     }
 });
 
 client.on("interactionCreate", (interaction) => {
+    const {commandName} = interaction
+    if (interaction.isCommand){
 
+        if (commandName == "setup"){
+            console.log("setup received")
+            //interaction.message.delete(1000);
+            console.log(client.guilds.cache.get(interaction.guildId))
+            let session = getOrCreateSession(interaction.guildId);
+            client.commands.get('setup').execute(interaction, client.guilds.cache.get(interaction.guildId).channels.cache.get(interaction.channelId), commandName, session);
+            return interaction.deferUpdate;
+        }
+    }
     if (!interaction.isButton()) return;
     if (interaction.user.bot) return;
 
