@@ -1,3 +1,4 @@
+const { REST } = require('@discordjs/rest');
 const { channel } = require('diagnostics_channel');
 const Discord = require('discord.js');
 require('dotenv').config()
@@ -11,9 +12,6 @@ const fs = require('fs');
 client.commands = new Discord.Collection();
 
 const prefix = '-';
-
-let invc = Boolean(false);
-
 let i = 1;
 
 let GUILDS = []
@@ -79,11 +77,6 @@ client.on('messageCreate', message => {
     if (command === 'setup') {
         let session = getOrCreateSession(message.guildId);
         client.commands.get('setup').execute(message, args, command, session);
-    }
-
-    if (command === 'join' && !invc){
-        invc = true;
-        message.user.voiceChannel.join().then(connection =>{const dispatcher = connection.play('./audio.mp3');}).catch(err => console.log(err));
     }
 });
 
