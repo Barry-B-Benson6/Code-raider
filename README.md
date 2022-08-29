@@ -21,3 +21,7 @@
 <p1>to run the bot have your terminal in the Directory/repo/Bot and run <code>node .</code></p1>
 
 <p1>When you see Refactor in the console the bot is up and you can start a raid in any server it is invited to (one per server).<p1/>
+
+<hr/>
+
+<footer style="align-self:center"><a href="https://github.com/sponsors/Barry-B-Benson6" target="_blank">Keep the bot running</a></footer>
