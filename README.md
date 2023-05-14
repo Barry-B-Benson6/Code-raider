@@ -12,13 +12,11 @@
 <p1>Create a <code>.env</code> file in the Bot folder directory for the repo</p1>
 
 
-<code>
-    TOKEN="your bot token"
-</code>
+<code>TOKEN="your bot token"</code>
 
 <p1>ensure that you have node.js installed<p1/>
 
-<p1>to run the bot have your terminal in the Directory/repo/Bot and run <code>node .</code></p1>
+<p1>to run the bot have your terminal in the Directory/repo/Bot and run <code>node .</code> after using <code>npm i<code/></p1>
 
 <p1>When you see Refactor in the console the bot is up and you can start a raid in any server it is invited to (one per server).<p1/>
 
